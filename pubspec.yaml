@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter_iconly: ^1.0.2
   card_swiper: ^2.0.4
+  page_transition: ^2.0.9
+  http: ^1.0.0
   flutter:
     sdk: flutter
 

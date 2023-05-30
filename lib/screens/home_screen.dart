@@ -1,7 +1,10 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:store_api_flutter_course/consts/global_colors.dart';
-import 'package:card_swiper/card_swiper.dart';
+import 'package:store_api_flutter_course/screens/feeds_screen.dart';
+
 import '../widgets/appbar_icons.dart';
 import '../widgets/sale_widget.dart';
 
@@ -14,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
+  // List<ProductsModel> productsList = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
@@ -34,73 +38,123 @@ class _HomeScreenState extends State<HomeScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          // elevation: 4,
-          title: const Text("Home"),
-          leading: AppBarIcons(
-            function: () {},
-            icon: IconlyBold.category,
-          ),
-          actions: [
-            AppBarIcons(
-              function: () {},
-              icon: IconlyBold.user3,
+          appBar: AppBar(
+            // elevation: 4,
+            title: const Text('Home'),
+            leading: AppBarIcons(
+              function: () {
+                // Navigator.push(
+                //   context,
+                //   PageTransition(
+                //     type: PageTransitionType.fade,
+                //     child: const CategoriesScreen(),
+                //   ),
+                // );
+              },
+              icon: IconlyBold.category,
             ),
-          ],
-        ),
-        body: Container(
-          margin: const EdgeInsets.all(12),
-          child: Column(children: [
-            const SizedBox(
-              height: 18,
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-              child: TextField(
-                controller: _textEditingController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    hintText: "Search",
-                    filled: true,
-                    fillColor: Theme.of(context).cardColor,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).cardColor,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    suffixIcon: const Icon(
-                      IconlyLight.search,
-                      color: Color.fromARGB(255, 222, 185, 242),
-                    )),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.25,
-              child: Swiper(
-                itemCount: 3,
-                itemBuilder: (ctx, index) {
-                  return const SaleWidget();
+            actions: [
+              AppBarIcons(
+                function: () {
+                  // Navigator.push(
+                  //   context,
+                  //   PageTransition(
+                  //     type: PageTransitionType.fade,
+                  //     child: const UsersScreen(),
+                  //   ),
+                  // );
                 },
-                pagination: const SwiperPagination(
-                  alignment: Alignment.bottomCenter,
-                  builder: DotSwiperPaginationBuilder(
-                    color: Colors.white,
-                    activeColor: Colors.red,
-                  ),
-                ),
+                icon: IconlyBold.user3,
               ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 18,
+                ),
+                TextField(
+                  controller: _textEditingController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      hintText: "Search",
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).cardColor,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                      suffixIcon: Icon(
+                        IconlyLight.search,
+                        color: lightIconsColor,
+                      )),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(children: [
+                      SizedBox(
+                        height: size.height * 0.25,
+                        child: Swiper(
+                          itemCount: 3,
+                          itemBuilder: (ctx, index) {
+                            return const SaleWidget();
+                          },
+                          autoplay: true,
+                          pagination: const SwiperPagination(
+                              alignment: Alignment.bottomCenter,
+                              builder: DotSwiperPaginationBuilder(
+                                  color: Colors.white,
+                                  activeColor: Colors.red)),
+                          // control: const SwiperControl(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Latest Product",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const Spacer(),
+
+                            ElevatedButton(
+                              child: Text("Click"),
+                              onPressed: () => {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: const FeedsScreen(),
+                                      type: PageTransitionType.fade,
+                                    ))
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ]),
+                  ),
+                )
+              ],
             ),
-          ]),
-        ),
-      ),
+          )),
     );
   }
 }
