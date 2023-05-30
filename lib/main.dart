@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           titleTextStyle: TextStyle(
               color: lightTextColor, fontSize: 22, fontWeight: FontWeight.bold),
-          elevation: 0,
+          // elevation: 0,
         ),
         iconTheme: IconThemeData(
           color: lightIconsColor,
